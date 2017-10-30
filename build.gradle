@@ -42,6 +42,14 @@ ext {
     compileSdkVersion = 26
 
     //Libraries
+    androidSupportVersion = '26.0.2'
+    leakCanaryVersion = '1.5.4'
 
     //Testing
+
+    androidDependencies = [
+        androidSupport: "com.android.support:appcompat-v7:${androidSupportVersion}",
+        leakCanaryDebug: "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+        leakCanaryRelease: "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",
+    ]
 }
