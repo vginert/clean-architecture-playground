@@ -22,5 +22,14 @@ android {
 }
 
 dependencies {
+    def dataDependencies = rootProject.ext.dataDependencies
 
+    implementation project(':domain')
+
+    compileOnly dataDependencies.javaxAnnotation
+    implementation dataDependencies.javaxInject
+    implementation dataDependencies.androidAnnotations
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitGsonConverter
+    implementation dataDependencies.retrofitRxjava2Apadter
 }

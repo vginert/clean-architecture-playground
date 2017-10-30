@@ -20,17 +20,32 @@ import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.vginert.cleanarchitectureplayground.android.di.HasComponent;
+import com.vginert.cleanarchitectureplayground.android.di.component.ApplicationComponent;
+import com.vginert.cleanarchitectureplayground.android.di.component.DaggerApplicationComponent;
+import com.vginert.cleanarchitectureplayground.android.di.module.ApplicationModule;
 
 /**
  * @author Vicente Giner Tendero
+ *
+ * Main application class
  */
 
-public class AndroidApplication extends Application {
+public class AndroidApplication extends Application implements HasComponent<ApplicationComponent> {
+
+    private ApplicationComponent component;
 
     @Override
     public void onCreate() {
         super.onCreate();
         this.setupLeakCanary();
+        this.setupDependencyInjector();
+    }
+
+    protected void setupDependencyInjector() {
+        this.component = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
     }
 
     protected RefWatcher setupLeakCanary() {
@@ -38,5 +53,10 @@ public class AndroidApplication extends Application {
             return RefWatcher.DISABLED;
         }
         return LeakCanary.install(this);
+    }
+
+    @Override
+    public ApplicationComponent getComponent() {
+        return component;
     }
 }

@@ -35,4 +35,8 @@ dependencies {
     implementation androidDependencies.androidSupport
     debugImplementation androidDependencies.leakCanaryDebug
     releaseImplementation androidDependencies.leakCanaryRelease
+    implementation androidDependencies.rxJava
+    implementation androidDependencies.rxAndroid
+    annotationProcessor androidDependencies.daggerCompiler
+    implementation androidDependencies.dagger
 }
