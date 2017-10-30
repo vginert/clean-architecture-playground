@@ -20,8 +20,28 @@ allprojects {
         google()
         jcenter()
     }
+
+    ext {
+        applicationId = 'com.vginert.cleanarchitectureplayground'
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testApplicationId = applicationId + '.test'
+    }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    //Android
+    buildToolsVersion = "26.0.2"
+    minSdkVersion = 19
+    targetSdkVersion = 26
+    compileSdkVersion = 26
+
+    //Libraries
+
+    //Testing
 }
