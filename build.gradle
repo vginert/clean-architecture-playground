@@ -34,6 +34,22 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+task runDomainUnitTests(dependsOn: [':domain:test']) {
+    description 'Run unit tests for the domain layer.'
+}
+
+task runDataUnitTests(dependsOn: [':data:cleanTestDebugUnitTest', ':data:testDebugUnitTest']) {
+    description 'Run unit tests for the data layer.'
+}
+
+task runUnitTests(dependsOn: ['runDomainUnitTests', 'runDataUnitTests']) {
+    description 'Run unit tests for both domain and data layers.'
+}
+
+task runAcceptanceTests(dependsOn: [':android:connectedAndroidTest']) {
+    description 'Run application acceptance tests.'
+}
+
 ext {
     //Android
     buildToolsVersion = "26.0.2"
@@ -52,6 +68,9 @@ ext {
     retrofitVersion = '2.3.0'
 
     //Testing
+    jUnitVersion = '4.12'
+    assertJVersion = '1.7.1'
+    mockitoVersion = '1.9.5'
 
     androidDependencies = [
             androidSupport   : "com.android.support:appcompat-v7:${androidSupportVersion}",
@@ -68,6 +87,12 @@ ext {
             javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject    : "javax.inject:javax.inject:${javaxInjectVersion}",
             rxJava         : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+    ]
+
+    domainTestDependencies = [
+            junit:              "junit:junit:${jUnitVersion}",
+            mockito:            "org.mockito:mockito-core:${mockitoVersion}",
+            assertj:            "org.assertj:assertj-core:${assertJVersion}"
     ]
 
     dataDependencies = [

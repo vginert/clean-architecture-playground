@@ -19,7 +19,7 @@ package com.vginert.cleanarchitectureplayground.domain;
 /**
  * @author Vicente Giner Tendero
  *
- * Represents a Product in the domain
+ * Represents a Product in domain
  */
 
 public class Product {

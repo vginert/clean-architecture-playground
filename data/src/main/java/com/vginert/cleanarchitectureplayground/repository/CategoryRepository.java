@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.vginert.cleanarchitectureplayground.domain.repository;
+package com.vginert.cleanarchitectureplayground.repository;
 
 import com.vginert.cleanarchitectureplayground.domain.Category;
+import com.vginert.cleanarchitectureplayground.domain.repository.ICategoryRepository;
 
 import java.util.List;
 
@@ -26,18 +27,17 @@ import io.reactivex.Observable;
  * @author Vicente Giner Tendero
  */
 
-public interface ICategoryRepository {
+public class CategoryRepository implements ICategoryRepository {
 
-    /**
-     * Return a {@link Observable} that emit a list of all categories
-     * @return Observable that emit a list of categories
-     */
-    Observable<List<Category>> getCategories();
+    @Override
+    public Observable<List<Category>> getCategories() {
+        // TODO implement
+        throw new UnsupportedOperationException();
+    }
 
-    /**
-     * Return a {@link Observable} that emit a category from id
-     * @param id The id of the category to retrieve the data
-     * @return Observable that emit a category
-     */
-    Observable<Category> getCategory(String id);
+    @Override
+    public Observable<Category> getCategory(String id) {
+        // TODO implement
+        throw new UnsupportedOperationException();
+    }
 }

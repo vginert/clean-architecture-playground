@@ -16,10 +16,11 @@
 
 package com.vginert.cleanarchitectureplayground.domain.interactor;
 
+import com.vginert.cleanarchitectureplayground.domain.Category;
 import com.vginert.cleanarchitectureplayground.domain.Product;
 import com.vginert.cleanarchitectureplayground.domain.executor.IObserverExecutionThread;
 import com.vginert.cleanarchitectureplayground.domain.executor.ISubscribeThreadExecutor;
-import com.vginert.cleanarchitectureplayground.domain.repository.IProductRepository;
+import com.vginert.cleanarchitectureplayground.domain.repository.ICategoryRepository;
 
 import javax.inject.Inject;
 
@@ -31,19 +32,19 @@ import io.reactivex.Observable;
  *         Represents a use case for retrieving data related to an specific {@link Product}.
  */
 
-public class GetProduct extends UseCase<Product, GetProduct.Params> {
+public class GetCategory extends UseCase<Category, GetCategory.Params> {
 
-    private final IProductRepository productRepository;
+    private final ICategoryRepository categoryRepository;
 
     @Inject
-    public GetProduct(IProductRepository productRepository, ISubscribeThreadExecutor subscribeThreadExecutor, IObserverExecutionThread observerExecutionThread) {
+    public GetCategory(ICategoryRepository categoryRepository, ISubscribeThreadExecutor subscribeThreadExecutor, IObserverExecutionThread observerExecutionThread) {
         super(subscribeThreadExecutor, observerExecutionThread);
-        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
-    Observable<Product> buildUseCaseObservable(Params params) {
-        return this.productRepository.getProduct(params.id);
+    Observable<Category> buildUseCaseObservable(Params params) {
+        return this.categoryRepository.getCategory(params.id);
     }
 
     public static final class Params {
@@ -54,7 +55,7 @@ public class GetProduct extends UseCase<Product, GetProduct.Params> {
             this.id = id;
         }
 
-        public static Params forProduct(String id) {
+        public static Params forCategory(String id) {
             return new Params(id);
         }
     }

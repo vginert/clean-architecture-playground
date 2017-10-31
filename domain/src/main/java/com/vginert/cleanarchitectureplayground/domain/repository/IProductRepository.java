@@ -28,9 +28,23 @@ import io.reactivex.Observable;
 
 public interface IProductRepository {
 
+    /**
+     * Return a {@link Observable} that emit a list of products from one category
+     * @param categoryId The category id for list the froducts
+     * @return Observable that emit a list of products
+     */
     Observable<List<Product>> getProductsFromCategory(final String categoryId);
 
+    /**
+     * Return a {@link Observable} that emit a list of all products
+     * @return Observable that emit a list of products
+     */
     Observable<List<Product>> getProducts();
 
+    /**
+     * Return a {@link Observable} that emit a product from id
+     * @param id The id of the product to retrieve the data
+     * @return Observable that emit a product
+     */
     Observable<Product> getProduct(final String id);
 }

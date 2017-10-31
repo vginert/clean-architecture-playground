@@ -19,7 +19,7 @@ package com.vginert.cleanarchitectureplayground.domain;
 /**
  * @author Vicente Giner Tendero
  *
- * Represents a Category in the domain
+ * Represents a Category in domain
  */
 
 public class Category {

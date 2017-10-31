@@ -21,26 +21,31 @@ import com.vginert.cleanarchitectureplayground.domain.executor.IObserverExecutio
 import com.vginert.cleanarchitectureplayground.domain.executor.ISubscribeThreadExecutor;
 import com.vginert.cleanarchitectureplayground.domain.repository.IProductRepository;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 
 /**
  * @author Vicente Giner Tendero
  *         <p>
- *         Represents a use case for retrieving data related to an specific {@link Product}.
+ *         Represents a use case for retrieving a list of {@link Product} from an specific {@link com.vginert.cleanarchitectureplayground.domain.Category}.
  */
 
-public class GetProduct extends UseCase<Product, GetProduct.Params> {
+public class GetCategoryProducts extends UseCase<List<Product>, GetCategoryProducts.Params> {
 
     private final IProductRepository productRepository;
 
-    public GetProduct(IProductRepository productRepository, ISubscribeThreadExecutor subscribeThreadExecutor, IObserverExecutionThread observerExecutionThread) {
+    @Inject
+    public GetCategoryProducts(IProductRepository productRepository, ISubscribeThreadExecutor subscribeThreadExecutor, IObserverExecutionThread observerExecutionThread) {
         super(subscribeThreadExecutor, observerExecutionThread);
         this.productRepository = productRepository;
     }
 
     @Override
-    Observable<Product> buildUseCaseObservable(Params params) {
-        return this.productRepository.getProduct(params.id);
+    Observable<List<Product>> buildUseCaseObservable(Params params) {
+        return this.productRepository.getProductsFromCategory(params.id);
     }
 
     public static final class Params {
@@ -51,7 +56,7 @@ public class GetProduct extends UseCase<Product, GetProduct.Params> {
             this.id = id;
         }
 
-        public static Params forProduct(String id) {
+        public static Params forCategory(String id) {
             return new Params(id);
         }
     }

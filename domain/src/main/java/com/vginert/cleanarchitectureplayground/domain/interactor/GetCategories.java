@@ -16,10 +16,10 @@
 
 package com.vginert.cleanarchitectureplayground.domain.interactor;
 
-import com.vginert.cleanarchitectureplayground.domain.Product;
+import com.vginert.cleanarchitectureplayground.domain.Category;
 import com.vginert.cleanarchitectureplayground.domain.executor.IObserverExecutionThread;
 import com.vginert.cleanarchitectureplayground.domain.executor.ISubscribeThreadExecutor;
-import com.vginert.cleanarchitectureplayground.domain.repository.IProductRepository;
+import com.vginert.cleanarchitectureplayground.domain.repository.ICategoryRepository;
 
 import java.util.List;
 
@@ -30,21 +30,21 @@ import io.reactivex.Observable;
 /**
  * @author Vicente Giner Tendero
  *         <p>
- *         Represents a use case for retrieving a list of all {@link Product}.
+ *         Represents a use case for retrieving a list of all {@link Category}.
  */
 
-public class GetProducts extends UseCase<List<Product>, Void> {
+public class GetCategories extends UseCase<List<Category>, Void> {
 
-    private final IProductRepository productRepository;
+    private final ICategoryRepository categoryRepository;
 
     @Inject
-    public GetProducts(IProductRepository productRepository, ISubscribeThreadExecutor subscribeThreadExecutor, IObserverExecutionThread observerExecutionThread) {
+    public GetCategories(ICategoryRepository categoryRepository, ISubscribeThreadExecutor subscribeThreadExecutor, IObserverExecutionThread observerExecutionThread) {
         super(subscribeThreadExecutor, observerExecutionThread);
-        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
-    Observable<List<Product>> buildUseCaseObservable(Void unused) {
-        return this.productRepository.getProducts();
+    Observable<List<Category>> buildUseCaseObservable(Void unused) {
+        return this.categoryRepository.getCategories();
     }
 }
