@@ -16,14 +16,13 @@
 
 package com.vginert.cleanarchitectureplayground.domain.exception;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
 
 
 /**
@@ -45,13 +44,13 @@ public class DefaultErrorBundleTest {
     @Test
     public void getException() throws Exception {
         Exception exception = this.defaultErrorBundle.getException();
-        assertThat(exception).isEqualTo(this.mockException);
+        Assertions.assertThat(exception).isEqualTo(this.mockException);
     }
 
     @Test
     public void getErrorMessage() throws Exception {
         this.defaultErrorBundle.getErrorMessage();
-        verify(this.mockException).getMessage();
+        Mockito.verify(this.mockException).getMessage();
     }
 
 }
