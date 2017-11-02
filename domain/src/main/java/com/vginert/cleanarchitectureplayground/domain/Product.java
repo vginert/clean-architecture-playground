@@ -25,6 +25,7 @@ package com.vginert.cleanarchitectureplayground.domain;
 public class Product {
 
     private final String id;
+    private String categoryId;
     private String name;
     private float price;
     private int stock;
@@ -36,6 +37,14 @@ public class Product {
 
     public String getId() {
         return id;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {

@@ -30,7 +30,7 @@ public interface IProductRepository {
 
     /**
      * Return a {@link Observable} that emit a list of products from one category
-     * @param categoryId The category id for list the froducts
+     * @param categoryId The category id for list the products
      * @return Observable that emit a list of products
      */
     Observable<List<Product>> getProductsFromCategory(final String categoryId);

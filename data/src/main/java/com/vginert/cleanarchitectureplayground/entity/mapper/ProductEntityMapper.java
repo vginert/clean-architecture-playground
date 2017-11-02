@@ -14,34 +14,33 @@
  * limitations under the License.
  */
 
-package com.vginert.cleanarchitectureplayground.net;
+package com.vginert.cleanarchitectureplayground.entity.mapper;
 
-import com.vginert.cleanarchitectureplayground.entity.CategoryEntity;
+import com.vginert.cleanarchitectureplayground.domain.Product;
 import com.vginert.cleanarchitectureplayground.entity.ProductEntity;
 
+import java.util.Collection;
 import java.util.List;
 
-import io.reactivex.Single;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
+import javax.inject.Inject;
 
 /**
  * @author Vicente Giner Tendero
  */
 
-public interface ISupermarketApi {
+public class ProductEntityMapper {
 
-    String BASE_URL = "https://github.com/vginert/sample-data/blob/master/product_sample_data/";
+    @Inject
+    public ProductEntityMapper() {
+    }
 
-    @GET("products.json")
-    Single<List<ProductEntity>> getProducts();
+    public Product transform(ProductEntity product) {
+        // TODO implement
+        throw new UnsupportedOperationException();
+    }
 
-    @GET("categories/{category_id}.json")
-    Single<List<ProductEntity>> getProductsFromCategory(@Path("category_id") String categoryId);
-
-    @GET("products/{id}.json")
-    Single<ProductEntity> getProduct(@Path("id") String id);
-
-    @GET("categories.json")
-    Single<List<CategoryEntity>> getCategories();
+    public List<Product> transform(Collection<ProductEntity> productCollection) {
+        // TODO implement
+        throw new UnsupportedOperationException();
+    }
 }

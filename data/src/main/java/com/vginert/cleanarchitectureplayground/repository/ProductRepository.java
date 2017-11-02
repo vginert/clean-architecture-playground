@@ -16,11 +16,17 @@
 
 package com.vginert.cleanarchitectureplayground.repository;
 
+import com.vginert.cleanarchitectureplayground.cache.IProductCache;
 import com.vginert.cleanarchitectureplayground.domain.Product;
 import com.vginert.cleanarchitectureplayground.domain.repository.IProductRepository;
+import com.vginert.cleanarchitectureplayground.entity.mapper.ProductEntityMapper;
+import com.vginert.cleanarchitectureplayground.net.ISupermarketApi;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 /**
@@ -29,21 +35,39 @@ import io.reactivex.Observable;
 
 public class ProductRepository implements IProductRepository {
 
+    private final ISupermarketApi supermarketApi;
+    private final IProductCache productCache;
+    private final ProductEntityMapper productEntityMapper;
+
+    @Inject
+    public ProductRepository(ISupermarketApi supermarketApi, IProductCache productCache, ProductEntityMapper productEntityMapper) {
+        this.supermarketApi = supermarketApi;
+        this.productCache = productCache;
+        this.productEntityMapper = productEntityMapper;
+    }
+
     @Override
     public Observable<List<Product>> getProductsFromCategory(String categoryId) {
-        // TODO implement
-        throw new UnsupportedOperationException();
+        return Maybe.concat(
+                // Get product from cache
+                productCache.getProductsFromCategory(categoryId),
+                // If cache don't return product get it from net and save it to the cache
+                this.supermarketApi.getProductsFromCategory(categoryId).toMaybe()
+                        .doOnSuccess(this.productCache::put)
+        ).toObservable().map(this.productEntityMapper::transform);
     }
 
     @Override
     public Observable<List<Product>> getProducts() {
-        // TODO implement
-        throw new UnsupportedOperationException();
+        return Maybe.concat(productCache.getProducts(),
+                this.supermarketApi.getProducts().toMaybe().doOnSuccess(this.productCache::put))
+                .toObservable().map(this.productEntityMapper::transform);
     }
 
     @Override
     public Observable<Product> getProduct(String id) {
-        // TODO implement
-        throw new UnsupportedOperationException();
+        return Maybe.concat(productCache.getProduct(id),
+                this.supermarketApi.getProduct(id).toMaybe().doOnSuccess(this.productCache::put))
+                .toObservable().map(this.productEntityMapper::transform);
     }
 }
